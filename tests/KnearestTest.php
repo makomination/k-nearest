@@ -47,6 +47,7 @@ final class KnearestTest extends TestCase
      */
     public function testCanBeCalculatedForKNearest(): void
     {
+        // kがデータの数以上
         $k = 3;
         $points = [
             ["x" => 10, "y" => -4, "value" => 3000],
@@ -56,8 +57,8 @@ final class KnearestTest extends TestCase
         $a = ["x" => 1, "y" => 1];
         $kNearest = new Knearest($points, $k, $a);
         $avg = $kNearest->calcKnearest();
-        // kとデータの数以上
         $this->assertEquals((1000 + 2000 + 3000) / 3, $avg);
+
         // kがデータの数未満
         $k = 2;
         $kNearest = new Knearest($points, $k, $a);
