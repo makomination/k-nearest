@@ -58,6 +58,10 @@ final class KnearestTest extends TestCase
         $kNearest = new Knearest($points, $k, $a);
         $avg = $kNearest->calcKnearest();
         $this->assertEquals((1000 + 2000 + 3000) / 3, $avg);
+        $k = 10;
+        $kNearest = new Knearest($points, $k, $a);
+        $avg = $kNearest->calcKnearest();
+        $this->assertEquals((1000 + 2000 + 3000) / 3, $avg);
 
         // kがデータの数未満
         $k = 2;
