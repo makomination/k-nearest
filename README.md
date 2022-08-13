@@ -16,7 +16,7 @@ $points = [
  　　　["x" => 2, "y" => 3, "value" => 2000],
 ]; // 座標及び値データ
 $a = ["x" => 1, "y" => 1]; // A地点の座標
-$guess = Knearest::calcKnearest($points, $k, $a); // 予測値
+$guess = Knearest::calcKnearest($k, $points, $a); // 予測値
 ```
 
 ## ユニットテスト実行方法

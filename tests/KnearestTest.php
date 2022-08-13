@@ -52,15 +52,15 @@ final class KnearestTest extends TestCase
             ["x" => 2, "y" => 3, "value" => 2000],
         ];
         $a = ["x" => 1, "y" => 1];
-        $guess = Knearest::calcKnearest($points, $k, $a);
+        $guess = Knearest::calcKnearest($k, $points, $a);
         $this->assertEquals((1000 + 2000 + 3000) / 3, $guess);
         $k = 10;
-        $guess = Knearest::calcKnearest($points, $k, $a);
+        $guess = Knearest::calcKnearest($k, $points, $a);
         $this->assertEquals((1000 + 2000 + 3000) / 3, $guess);
 
         // kがデータの数未満
         $k = 2;
-        $guess = Knearest::calcKnearest($points, $k, $a);
+        $guess = Knearest::calcKnearest($k, $points, $a);
         $this->assertEquals((1000 + 2000) / 2, $guess);
     }
 }

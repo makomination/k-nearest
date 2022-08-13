@@ -36,11 +36,11 @@ final class Knearest
     /**
      * k近傍法の計算
      * 
-     * @param array $points 各要素の配列にkey"x"と"y"があること (["x": float, "y": float, "value": float][])
      * @param int $k k近傍法のk
+     * @param array $points 各要素の配列にkey"x"と"y"があること (["x": float, "y": float, "value": float][])
      * @param array $a 点aの座標 (["x": float, "y": float])
      */
-    static function calcKnearest(array $points, int $k, array $a): float
+    static function calcKnearest(int $k, array $points, array $a): float
     {
         $sortedDataset = self::sortPoints($points, $a);
         $sum = 0.0;
