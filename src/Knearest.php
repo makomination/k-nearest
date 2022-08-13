@@ -7,29 +7,31 @@ declare(strict_types=1);
  */
 final class Knearest
 {
-    /** 距離でソートされた$points */
-    private array $dataset;
+
     /** k近傍法のk */
     private int $k;
     /** 点aの座標 */
     private array $a;
+    /** 距離でソートされた$points */
+    private array $sortedDataset;
 
     public function __construct(array $points, int $k, array $a)
     {
-        $this->a = $a;
         $this->k = $k;
-        $this->dataset = $this->sortPoints($points);
+        $this->a = $a;
+        $this->sortedDataset = self::sortPoints($points, $this->a);
     }
 
     /**
      * $pointsを距離順にソートしたものを返す
      * 
      * @param array $points 各要素の配列にkey"x"と"y"があること
+     * @param array $a 点aの座標 (["x": float, "y": float])
      */
-    public function sortPoints(array $points): array
+    static function sortPoints(array $points, array $a): array
     {
-        usort($points, function ($a, $b) {
-            return $this->calcDistance($a) <=> $this->calcDistance($b);
+        usort($points, function ($x, $y) use ($a) {
+            return self::calcDistance($x, $a) <=> self::calcDistance($y, $a);
         });
         return $points;
     }
@@ -37,12 +39,13 @@ final class Knearest
     /**
      * 距離(の2乗)を計算
      * 
-     * @param array $point key"x"と"y"があること
+     * @param array $point 各座標と値 (["x": float, "y": float, "value": float])
+     * @param array $a 点aの座標 (["x": float, "y": float])
      */
-    public function calcDistance(array $point): float
+    static function calcDistance(array $point, array $a): float
     {
-        return ($point["x"] - $this->a["x"]) * ($point["x"] - $this->a["x"]) +
-            ($point["y"] - $this->a["y"]) * ($point["y"] - $this->a["y"]);
+        return ($point["x"] - $a["x"]) * ($point["x"] - $a["x"]) +
+            ($point["y"] - $a["y"]) * ($point["y"] - $a["y"]);
     }
 
     /**
@@ -51,7 +54,7 @@ final class Knearest
     public function calcKnearest(): float
     {
         $sum = 0.0;
-        $targetDataSet = array_slice($this->dataset, 0, $this->k);
+        $targetDataSet = array_slice($this->sortedDataset, 0, $this->k);
         foreach ($targetDataSet as $data) {
             $sum += $data['value'];
         }

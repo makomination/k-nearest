@@ -12,15 +12,13 @@ final class KnearestTest extends TestCase
      */
     public function testCanBeCalculatedForDistance(): void
     {
-        $k = 3;
         $points = [
             ["x" => 0, "y" => 0, "value" => 1000],
             ["x" => 2, "y" => 3, "value" => 1590],
         ];
         $a = ["x" => 1, "y" => 1];
-        $kNearest = new Knearest($points, $k, $a);
-        $this->assertEquals(2, $kNearest->calcDistance($points[0]));
-        $this->assertEquals(5, $kNearest->calcDistance($points[1]));
+        $this->assertEquals(2.0, Knearest::calcDistance($points[0], $a));
+        $this->assertEquals(5.0, Knearest::calcDistance($points[1], $a));
     }
 
     /**
@@ -35,8 +33,7 @@ final class KnearestTest extends TestCase
             ["x" => 2, "y" => 3, "value" => 1590],
         ];
         $a = ["x" => 1, "y" => 1];
-        $kNearest = new Knearest($points, $k, $a);
-        $sorted = $kNearest->sortPoints($points);
+        $sorted = Knearest::sortPoints($points, $a);
         $this->assertEquals(["x" => 0, "y" => 0, "value" => 1000], $sorted[0]);
         $this->assertEquals(["x" => 2, "y" => 3, "value" => 1590], $sorted[1]);
         $this->assertEquals(["x" => 10, "y" => -4, "value" => 3000], $sorted[2]);
@@ -56,17 +53,17 @@ final class KnearestTest extends TestCase
         ];
         $a = ["x" => 1, "y" => 1];
         $kNearest = new Knearest($points, $k, $a);
-        $avg = $kNearest->calcKnearest();
-        $this->assertEquals((1000 + 2000 + 3000) / 3, $avg);
+        $guess = $kNearest->calcKnearest();
+        $this->assertEquals((1000 + 2000 + 3000) / 3, $guess);
         $k = 10;
         $kNearest = new Knearest($points, $k, $a);
-        $avg = $kNearest->calcKnearest();
-        $this->assertEquals((1000 + 2000 + 3000) / 3, $avg);
+        $guess = $kNearest->calcKnearest();
+        $this->assertEquals((1000 + 2000 + 3000) / 3, $guess);
 
         // kがデータの数未満
         $k = 2;
         $kNearest = new Knearest($points, $k, $a);
-        $avg = $kNearest->calcKnearest();
-        $this->assertEquals((1000 + 2000) / 2, $avg);
+        $guess = $kNearest->calcKnearest();
+        $this->assertEquals((1000 + 2000) / 2, $guess);
     }
 }
