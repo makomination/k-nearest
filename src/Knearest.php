@@ -7,21 +7,6 @@ declare(strict_types=1);
  */
 final class Knearest
 {
-
-    /** k近傍法のk */
-    private int $k;
-    /** 点aの座標 */
-    private array $a;
-    /** 距離でソートされた$points */
-    private array $sortedDataset;
-
-    public function __construct(array $points, int $k, array $a)
-    {
-        $this->k = $k;
-        $this->a = $a;
-        $this->sortedDataset = self::sortPoints($points, $this->a);
-    }
-
     /**
      * $pointsを点aからの距離順にソートしたものを返す
      * 
@@ -50,11 +35,16 @@ final class Knearest
 
     /**
      * k近傍法の計算
+     * 
+     * @param array $points 各要素の配列にkey"x"と"y"があること (["x": float, "y": float, "value": float][])
+     * @param int $k k近傍法のk
+     * @param array $a 点aの座標 (["x": float, "y": float])
      */
-    public function calcKnearest(): float
+    static function calcKnearest(array $points, int $k, array $a): float
     {
+        $sortedDataset = self::sortPoints($points, $a);
         $sum = 0.0;
-        $targetDataSet = array_slice($this->sortedDataset, 0, $this->k);
+        $targetDataSet = array_slice($sortedDataset, 0, $k);
         foreach ($targetDataSet as $data) {
             $sum += $data['value'];
         }
