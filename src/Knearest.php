@@ -37,7 +37,7 @@ final class Knearest
     }
 
     /**
-     * 距離(の2乗)を計算
+     * 点aからの距離(の2乗)を計算
      * 
      * @param array $point 各座標と値 (["x": float, "y": float, "value": float])
      * @param array $a 点aの座標 (["x": float, "y": float])
