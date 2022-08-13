@@ -23,7 +23,7 @@ final class Knearest
     }
 
     /**
-     * $pointsを距離順にソートしたものを返す
+     * $pointsを点aからの距離順にソートしたものを返す
      * 
      * @param array $points 各要素の配列にkey"x"と"y"があること
      * @param array $a 点aの座標 (["x": float, "y": float])

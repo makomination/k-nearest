@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 final class KnearestTest extends TestCase
 {
     /**
-     * 距離を計算できること
+     * 点aからの距離を計算できること
      */
     public function testCanBeCalculatedForDistance(): void
     {
@@ -22,7 +22,7 @@ final class KnearestTest extends TestCase
     }
 
     /**
-     * 距離順にソートされること
+     * $pointsが点aからの距離順にソートされること
      */
     public function testCanBeSortedByAsc(): void
     {
